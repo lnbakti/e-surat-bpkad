@@ -25,9 +25,56 @@ Sistem Informasi Manajemen Persuratan adalah aplikasi berbasis web yang dikemban
 
 ---
 
-## 🚀 Panduan Instalasi & Menjalankan Aplikasi
+## 🐳 Menjalankan dengan Docker (Direkomendasikan)
 
-Ikuti langkah-langkah berikut untuk menjalankan proyek ini di lingkungan lokal Anda:
+Aplikasi ini sudah dilengkapi dengan konfigurasi Docker lengkap menggunakan dependensi terbaru dan stabil (**PHP 8.3-FPM, MySQL 8.4 LTS, Nginx 1.27, Node 22 LTS, Redis 7, phpMyAdmin, dan Mailpit**).
+
+Semua proses instalasi dependensi (`composer install`, `npm install`, `npm run build`, `key:generate`, `storage:link`, dan migrasi basis data) telah diotomatisasi di dalam script entrypoint Docker.
+
+### 1. Jalankan Container
+Cukup jalankan satu perintah:
+```bash
+make up
+# atau
+docker compose up -d
+```
+
+### 2. Layanan yang Tersedia
+Setelah container berjalan, akses layanan melalui browser:
+- **Aplikasi Web (Nginx + Laravel):** [http://localhost:8000](http://localhost:8000)
+- **Database GUI (phpMyAdmin):** [http://localhost:8080](http://localhost:8080)
+  - *Server:* `db`
+  - *Username:* `root`
+  - *Password:* `511040`
+- **Email Testing (Mailpit):** [http://localhost:8025](http://localhost:8025)
+- **Database MySQL Port:** `3306`
+
+### 3. Perintah Bermanfaat (Makefile / Docker Compose)
+```bash
+# Isi data awal / dummy pengguna
+make seed
+
+# Reset database & migrasi ulang dengan seeder
+make fresh
+
+# Menjalankan Vite Hot Reload (Dev mode)
+make vite
+
+# Masuk ke dalam terminal container app
+make bash
+
+# Melihat log container
+make logs
+
+# Menghentikan container
+make down
+```
+
+---
+
+## 🚀 Panduan Instalasi Manual (Tanpa Docker)
+
+Jika Anda ingin menjalankan tanpa Docker di lingkungan lokal Anda:
 
 ### 1. Clone Repositori
 ```bash
